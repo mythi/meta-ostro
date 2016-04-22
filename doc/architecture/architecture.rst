@@ -19,56 +19,62 @@ IoT product creation.
 .. _`Soletta Project`: http://solettaproject.org
 .. _`Node.JS`: https://nodejs.org
 .. _`IoTivity`: https://www.iotivity.org/
+.. _`Ostro Project download server`: https://download.ostroproject.org
+.. _`application sample recipes`: https://github.com/ostroproject/meta-appfw/tree/master/recipes-appfw
 
-Ostro |trade| OS Characteristics
+Ostro OS Characteristics
 =================================
 
-In Ostro |trade| OS, there are four key characteristics that
+In Ostro OS, there are four key characteristics that
 drive the architecture design:
 
-1. Ostro OS uses standard libraries and services: The building blocks
-used in Ostro OS are commonly used in open source and any Ostro OS
-custom implementation is avoided. This has a big benefit because it
-means there is no extra porting/platform adaptation needed to get
-existing applications or services run in Ostro OS.
+#. **Ostro OS uses standard libraries and services**: The building blocks
+   used in Ostro OS are commonly used in open source and any Ostro OS
+   custom implementation is avoided. This has a big benefit because it
+   means there is little extra porting or platform adaptation needed to get
+   existing applications or services run in Ostro OS, often just
+   creating an application manifest file.
 
-2. Ostro OS is pre-compiled and configured: Ostro OS is based
-on the `Yocto Project_` and is provided
-as pre-compiled and configured distribution for IoT. There is no
-end-user compilation needed when starting from scratch with Ostro OS
-since the build system is configured to use the shared. In addition,
-pre-compiled reference images are available for download.
+#. **Ostro OS is pre-compiled and configured**: Ostro OS is based
+   on the `Yocto Project`_ and is provided
+   as pre-compiled and configured distributions for IoT. There is no
+   end-user compilation needed when starting from scratch with Ostro OS
+   since the build system is configured to use the shared [TODO]. In addition,
+   pre-compiled reference images are available from the `Ostro Project download server`_.
 
-3. Ostro OS is secured and built with security in mind: Security is
-critical for IoT and it is also a focus in Ostro OS. The security
-design is to provide scalable options how security can be configured
-in Ostro based products. The security architecture is explained in
-more details in :ref: `system-and-security-architecture`.
+#. **Ostro OS is built with security in mind**: Security is
+   critical for IoT and is a focus area in Ostro OS. The security
+   design provides scalable options for security configurations
+   in Ostro OS-based products. The security architecture is explained in
+   more details in :ref:`system-and-security-architecture`.
 
-4. Ostro OS is easy to customize: While Ostro OS comes pre-compiled
-(binaries and images), it is important that the OS can be customized
-to meet the diverse product needs in IoT space. With the help of
-Yocto Project build system used by Ostro OS, it is easy to customize
-the build and images to suit the needs. :ref:`quick_start/about` and
-the links provided there give a good start to Ostro OS customization.
+#. **Ostro OS is easy to customize**: While Ostro OS comes pre-compiled
+   (binaries and images), it can be customized
+   to meet the diverse product needs of IoT applications. With the help of
+   the Yocto Project build system used by Ostro OS, it is easy to customize
+   the build and generated images to suit your needs. :ref:`about_ostro` and
+   the links provided there give a good start to Ostro OS customization.
+   These pre-compiled images are intended to expedite your development
+   work and not for use in production systems.
 
-Ostro |trade| OS Architecture Stack
+Ostro OS Architecture Stack
 ===================================
 
-One way to descibe Ostro OS architecture is to build a stack from
+One way to describe Ostro OS architecture is to build a stack from the
 hardware platform up to an IoT Application layer. This stack is
-illustrated in Fig 1.
+illustrated here.
 
-.. image::images/ostro_os_architecture.png
+.. image:: images/ostro_os_architecture.svg
+   :width: 400px
 
-In the following, each layer is explained in more detail.
+The following sections examine each layer in more detail.
 
 IoT Applications
 ----------------
 The IoT applications layer consist of all applications that use the
 underlying platform. Ostro OS itself currently does not
-implement any concrete IoT use-cases via applications but many sample
-applications are provided to demonstrate the OS services.
+implement any specific IoT use-cases via applications, but 
+`application sample recipes`_ are provided to demonstrate the OS services.
 
 Programming Interfaces
 -----------------------
@@ -76,77 +82,78 @@ Ostro OS provides various application runtimes to allow the end-user
 more choices to use in their IoT applications.
 
 * `Soletta Project`_ is an open source
-framework for making IoT applications. The project provides libraries
-to make it quick and easy to write software for IoT devices. The
-applications can we written using a flow-based programing (FBP) or
-more traditionally as C applications linking to Soletta's C based
-platform APIs.
+  framework for making IoT applications. The project provides libraries
+  to make it quick and easy to write software for IoT devices. The
+  applications can we written using flow-based programing (FBP) or
+  more traditionally as C applications linking to Soletta's C-based
+  platform APIs.
 
 * `Node.JS`_ is a popular JavaScript runtime to
-run (IoT) web applications. Ostro OS provides the Node.JS runtime
-and selected JavaScript APIs (as Node.JS modules) to build IoT
-applications. The set of APIs include, e.g., a Javascript API for
-the OIC specification. The Javascript API set is kept aligned with
-the API set provided by Soletta.
+  run (IoT) web applications. Ostro OS provides the Node.JS runtime
+  and selected JavaScript APIs (as Node.JS modules) to build IoT
+  applications. The set of APIs includes, for example, a Javascript API for
+  the Open Connectivity Foundation (OCF) specification. 
+  The Javascript API set is kept aligned with
+  the API set provided by Soletta.
 
-* In addition to Soletta and Node.JS, common programming languages/
-runtimes in IoT space are supported. Ostro OS provides Python runtime
-and Java Platform (OpenJDK8) that are popular in the IoT space.
+* Ostro OS also provides support for the popular IoT-space development
+  languages Python and Java\* (OpenJDK8).
 
 Frameworks
 ----------
 
-Frameworks provide an abstraction to platform services. For making
-application deployment easy, the Ostro Application
-Framework :ref:`application_framework` provides tooling for
+Frameworks provide an abstraction to platform services, making
+application deployment easier. The Ostro Application
+Framework :ref:`application-framework` provides tooling for
 application writers to get the applications running in an Ostro OS
 based image.
 
 The Ostro Application framework implements a systemd generator that
-parses the application manifest files to systemd .service.
+parses the application manifest files to systemd services.
 
-`IoTivity`_ TODO
+`IoTivity`_ [TODO]
 
 Services
 --------
 
 The responsibility of system services is to bring up the system,
-manage wireless connections, and process' IPC. The components
-used are commonly used in all open source OSes: systemd, connman,
+manage wireless connections, and set up process' inter-process communication (IPC). 
+The components Ostro OS uses
+are commonly found in most open source OSes: systemd, connman,
 bluez, and D-Bus.
 
 In addition to systemd and connectivity, Ostro OS comes with
-:ref: `software-update` technology that helps to support software
+:ref:`software-update` technology that helps support software
 updates to deployed devices.
 
 Base Libraries
 --------------
 
-Standard Linux base libraries are used in Ostro...
+Standard Linux base libraries are used in Ostro... [TODO]
 
 
 Linux Kernel and Hardware Adaptation
 -------------------------------------
 
-The hardware BSPs for Ostro OS run the Linux Kernel. The kernel
+The hardware board support packages (BSP) for Ostro OS run the Linux Kernel. The kernel
 provides the necessary drivers and hardware adaptation.
 
 Sensors and connectivity are critical for IoT devices. Therefore,
-Ostro OS maintains a dedicated page: :ref: `hardware` that describes
-how various peripherals can be run with :ref:`quick_start/platforms`
+Ostro OS maintains a dedicated page for :ref:`hardware` that describes
+how various peripherals can be run with :ref:`platforms`.
 
-Ostro |trade| OS Composition
-=============================
+Ostro OS Composition
+====================
 
 The Ostro OS is a composition of multiple Yocto Project build system
-metadata maintained in individual layer repositories. The layers used
-in Ostro OS are composed into `ostro-os`.
+metadata layers maintained in individual layer repositories. The layers used
+in Ostro OS are combined to form the ``ostro-os`` repo.
 
 The following layer repositories are used in Ostro OS. The Board
-Support Package (BSP) layers
+Support Package (BSP) layers [TODO]
 
 ========================= =======================================
-Layer Description
+Layer Name                Description
 ========================= =======================================
 openembedded-core         Core metadata and major source of
                           all component recipes
@@ -169,22 +176,26 @@ meta-security-isafw       Image Security Analysis framework gives
 meta-soletta              Soletta Project
 meta-swupd                Software update tooling
 meta-intel                BSP layer for common IA platforms
-meta-yocto-bsp            BSP layer for beaglebone black
+meta-yocto-bsp            BSP layer for BeagleBone black
 meta-edison-bsp           BSP layer for Intel Edison.
 ========================= =======================================
 
-TBD: Ostro |trade| OS Development Workflows
-======================================
+Ostro OS Development Workflows  
+==============================
 
-* eSDK
+.. _`Yocto Project SDK`: http://www.yoctoproject.org/docs/2.1/sdk-manual/sdk-manual.html
+
+[TBD]
+
+* eSDK  [Mikko, I bet you can gleen some useful words from the intro of the sdk manual I linked to above]
 * swupd feeds
 * SSTATE
 
-Ostro |trade| OS Technical Documentation
-=======================================
+Ostro OS Technical Documentation
+=================================
 
-The following documents give more technical details about Ostro
-|trade| OS components and their usage.
+The following documents give more technical details about specific Ostro
+OS components and their usage.
 
 .. toctree::
    :maxdepth: 1
@@ -195,4 +206,3 @@ The following documents give more technical details about Ostro
    application-framework
    security-threat-analysis
    system-and-security-architecture
-
