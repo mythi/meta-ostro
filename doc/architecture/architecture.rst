@@ -10,7 +10,7 @@ The Ostro |trade| OS is a pre-compiled, configured and secured base
 Internet of Things (IoT) Linux\* OS that supports creating custom images
 easily. For more information, see :ref:`about_ostro`.
 
-This document gives an overview to Ostro OS architecture and the basic
+This document gives an overview of the Ostro OS architecture and its main
 building blocks. Furthermore, the document briefly talks about how
 Ostro OS meets different end-user use-cases ranging from hacking to
 IoT product creation.
@@ -21,26 +21,28 @@ IoT product creation.
 .. _`IoTivity`: https://www.iotivity.org/
 .. _`Ostro Project download server`: https://download.ostroproject.org
 .. _`application sample recipes`: https://github.com/ostroproject/meta-appfw/tree/master/recipes-appfw
+.. _`Open Connectivity Foundation`: http://openconnectivity.org/
 
 Ostro OS Characteristics
-=================================
+========================
 
 In Ostro OS, there are four key characteristics that
 drive the architecture design:
 
 #. **Ostro OS uses standard libraries and services**: The building blocks
-   used in Ostro OS are commonly used in open source and any Ostro OS
-   custom implementation is avoided. This has a big benefit because it
-   means there is little extra porting or platform adaptation needed to get
-   existing applications or services run in Ostro OS, often just
-   creating an application manifest file.
+   used in Ostro OS are commonly used in many open-source projects and custom
+   implementations are avoided to the extent possible. This has a big benefit
+   as there is little porting or platform adaptation needed to get
+   existing applications or services to run on Ostro OS; often times, all that's
+   needed is to create a manifest for your application.
 
-#. **Ostro OS is pre-compiled and configured**: Ostro OS is based
-   on the `Yocto Project`_ and is provided
-   as pre-compiled and configured distributions for IoT. There is no
-   end-user compilation needed when starting from scratch with Ostro OS
-   since the build system is configured to use the shared [TODO]. In addition,
-   pre-compiled reference images are available from the `Ostro Project download server`_.
+#. **Ostro OS is pre-compiled and pre-configured**: Ostro OS leverages the
+   `Yocto Project`_ build tools and is provided as a pre-compiled and pre-configured
+   distribution specifically tuned for IoT devices. Generating and compiling your own
+   Ostro OS image is very fast since the build system is configured to use the Shared
+   State Cache (SSTATE) mechanism offered by the Yocto tools [TODO].
+   In addition, pre-compiled reference images are available from the
+   `Ostro Project download server`_ to get you started in no time.
 
 #. **Ostro OS is built with security in mind**: Security is
    critical for IoT and is a focus area in Ostro OS. The security
@@ -52,13 +54,14 @@ drive the architecture design:
    (binaries and images), it can be customized
    to meet the diverse product needs of IoT applications. With the help of
    the Yocto Project build system used by Ostro OS, it is easy to customize
-   the build and generated images to suit your needs. :ref:`about_ostro` and
-   the links provided there give a good start to Ostro OS customization.
-   These pre-compiled images are intended to expedite your development
-   work and not for use in production systems.
+   the build and generated images that are finely tuned to meet your exact needs.
+   :ref:`about_ostro` and the links provided there are an excellent starting point
+   to learn more about the Ostro OS extensive customization possibilities. These
+   pre-compiled images are intended to expedite your development work and not intended
+   for use in production systems.
 
 Ostro OS Architecture Stack
-===================================
+===========================
 
 One way to describe Ostro OS architecture is to build a stack from the
 hardware platform up to an IoT Application layer. This stack is
@@ -67,7 +70,7 @@ illustrated here.
 .. image:: images/ostro_os_architecture.svg
    :width: 400px
 
-The following sections examine each layer in more detail.
+The following sections examine each layer in more details.
 
 IoT Applications
 ----------------
@@ -78,13 +81,13 @@ implement any specific IoT use-cases via applications, but
 
 Programming Interfaces
 -----------------------
-Ostro OS provides various application runtimes to allow the end-user
-more choices to use in their IoT applications.
+Ostro OS provides various application runtimes offering more flexibility and
+options to application developers to implement their IoT solution.
 
-* `Soletta Project`_ is an open source
+* `Soletta Project`_ is an open-source
   framework for making IoT applications. The project provides libraries
   to make it quick and easy to write software for IoT devices. The
-  applications can we written using flow-based programing (FBP) or
+  applications can we written using flow-based programming (FBP) or
   more traditionally as C applications linking to Soletta's C-based
   platform APIs.
 
@@ -92,9 +95,8 @@ more choices to use in their IoT applications.
   run (IoT) web applications. Ostro OS provides the Node.JS runtime
   and selected JavaScript APIs (as Node.JS modules) to build IoT
   applications. The set of APIs includes, for example, a Javascript API for
-  the Open Connectivity Foundation (OCF) specification. 
-  The Javascript API set is kept aligned with
-  the API set provided by Soletta.
+  the `Open Connectivity Foundation`_ (OCF) specifications. The JavaScript
+  API set is kept aligned with the API set provided by Soletta.
 
 * Ostro OS also provides support for the popular IoT-space development
   languages Python and Java\* (OpenJDK8).
@@ -109,18 +111,17 @@ application writers to get the applications running in an Ostro OS
 based image.
 
 The Ostro Application framework implements a systemd generator that
-parses the application manifest files to systemd services.
+parses the application manifest files to generate a systemd service file.
 
 `IoTivity`_ [TODO]
 
 Services
 --------
 
-The responsibility of system services is to bring up the system,
-manage wireless connections, and set up process' inter-process communication (IPC). 
-The components Ostro OS uses
-are commonly found in most open source OSes: systemd, connman,
-bluez, and D-Bus.
+The responsibility of system services is to bring the system up,
+manage connectivity and set up process' inter-process communication (IPC).
+The components Ostro OS use are commonly found in many open-source OSes: systemd,
+ConnMan, BlueZ, D-Bus and others.
 
 In addition to systemd and connectivity, Ostro OS comes with
 :ref:`software-update` technology that helps support software
