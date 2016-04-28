@@ -65,7 +65,7 @@ Ostro OS Architecture Stack
 ===========================
 
 One way to describe Ostro OS architecture is to build a stack from the
-hardware platform up to an IoT Application layer. This stack is
+hardware platform up to an IoT Application layer. Such stack is
 illustrated here.
 
 .. image:: images/ostro_os_architecture.svg
@@ -112,10 +112,10 @@ Framework :ref:`application-framework` provides tooling for
 application writers to get the applications running in an Ostro OS
 based image.
 
-The Ostro Application framework implements a `systemd.generator'_ that
-parses the application manifest files to generate a systemd service files.
+The Ostro Application framework implements a `systemd.generator`_ that
+parses the application manifest file to automatically generate a systemd service file.
 
-Ostro OS also pre-integrates `IoTivity`_ framework. IoTivity is an open source
+Ostro OS also pre-integrates `IoTivity`_ framework. IoTivity is an open-source
 project that implements the full OCF specification by `Open Connectivity Foundation`_. In
 addition to `IoTivity`_, another implementation of the specification API is also
 available via `Soletta Project`_.
@@ -153,7 +153,7 @@ The hardware board support packages (BSP) for Ostro OS run the Linux Kernel. The
 provides the necessary drivers and hardware adaptation.
 
 Sensors and connectivity are critical for IoT devices. Ostro OS reference Linux
-kernel configuration focuses on making good number of sensors and connectivity peripherals
+kernel configuration focuses on making as many sensors and connectivity peripherals
 available for the end-users and makers. In addition, a dedicated page for :ref:`hardware` that
 describes how various peripherals can be run with :ref:`platforms` is maintained.
 
@@ -190,28 +190,29 @@ CPU architecure configuration for :ref:`platforms`.
 Layer Repository Name        Description
 ============================ =======================================
 `openembedded-core`_         Core metadata and component recipes
-`meta-appfw`_                Ostro OS application framework recipes
-                             and sample applications
-`meta-intel-iot-middleware`_ Middleware components used in Intel IoT
-                             DevKit
-`meta-intel-iot-security`_   Security building blocks: IMA, SMACK.
-`meta-iotqa`_                Ostro OS test tools
-`meta-iot-web`_              Node.JS and OIC JavaScript APIs
-`meta-java`_                 Java support (openjdk8)
-`meta-oic`_                  `IoTivity`_
-`meta-openembedded`_         Collection of OpenEmbedded layers
+`meta-intel`_                BSP layer for common IA platforms
 `meta-ostro`_                Ostro OS distro metadata, configuration,
                              and documentation
-`meta-ostro-bsp`_            Ostro OS BSP configuration metadata
 `meta-ostro-fixes`_          Ostro OS layer that is used to carry
                              fixes to upstream layers
+`meta-ostro-bsp`_            Ostro OS BSP configuration metadata
+`meta-edison-bsp`_           BSP layer for Intel Edison (integrated
+                             via the `meta-ostro-bsp`_ layer)
+`meta-intel-iot-security`_   Security building blocks: IMA, SMACK.
+`meta-appfw`_                Ostro OS application framework recipes
+                             and sample applications
+`meta-openembedded`_         Collection of OpenEmbedded layers
+`meta-oic`_                  `IoTivity`_
+`meta-intel-iot-middleware`_ Middleware components used in Intel IoT
+                             DevKit
+`meta-iotqa`_                Ostro OS test tools
+`meta-iot-web`_              Node.JS and OIC JavaScript APIs
 `meta-security-isafw`_       Image Security Analysis framework gives
                              offline tooling to analyze images
+`meta-yocto`_                BSP layer for BeagleBone Black
+`meta-java`_                 Java support (openjdk8)
 `meta-soletta`_              `Soletta Project`_
 `meta-swupd`_                Software update tooling
-`meta-intel`_                BSP layer for common IA platforms
-`meta-yocto`_                BSP layer for BeagleBone Black
-`meta-edison-bsp`_           BSP layer for Intel Edison
 ============================ =======================================
 
 The Ostro OS distro configuration file (:file:`meta-ostro/conf/distro/ostro.conf`) defines
@@ -230,7 +231,7 @@ Ostro OS enables many options how to do hacking and/or IoT product development.
 #. **Adding 3rd party content**: For device makers it's often necessary to bring in additional 3rd party libraries and product IoT applications while still keeping the base OS unchanged. `Yocto Project extensible SDK`_ (discussed below) built for Ostro OS tries to make that process easy.
 
 Extensible SDK
-______________
+--------------
 
 Using the `Yocto Project extensible SDK`_ built for Ostro OS makes it easy to add new applications and libraries to an image, modify the source for an existing component, test changes on the target hardware. Each Ostro OS build found in `Ostro Project download server`_ has an extensible SDK installer that is quick to download and install on user's development PC.
 
